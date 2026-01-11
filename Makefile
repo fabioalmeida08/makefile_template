@@ -29,13 +29,13 @@ DEPS := $(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CCFLAGS) $(CPPFLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) -o $@
 	@echo "$(GREEN)🛠️ Finished compiling $(NAME) objects$(RESET)"
 	@echo "$(GREEN)🚀 $@ was created$(RESET)"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	$(DIR_DUP)
-	$(CC) $(CCFLAGS) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
 
