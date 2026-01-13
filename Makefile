@@ -18,6 +18,8 @@ RESET = \033[0m
 # DIRS
 SRCS_DIR = src
 OBJS_DIR = objs
+BIN_DIR = bin
+TARGET = $(BIN_DIR)/$(NAME)
 
 # FILES
 SRCS := x.c
@@ -26,16 +28,17 @@ OBJS := $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 DEPS := $(OBJS:.o=.d)
 
 # RULES
-all: $(NAME)
+all: $(TARGET)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) -o $@
+$(TARGET): $(OBJS)
+	@(DIR_DUP)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) -o $@
 	@echo "$(GREEN)🛠️ Finished compiling $(NAME) objects$(RESET)"
 	@echo "$(GREEN)🚀 $@ was created$(RESET)"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	$(DIR_DUP)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@$(DIR_DUP)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 -include $(DEPS)
 
@@ -44,7 +47,7 @@ clean:
 	@echo "$(RED)🧹 $(NAME) objects removed$(RESET)"
 
 fclean: clean
-	@rm -rf $(NAME)
+	@rm -rf $(TARGET)
 	@echo "$(RED)💥 $(NAME) deleted$(RESET)"
 
 re: fclean all
