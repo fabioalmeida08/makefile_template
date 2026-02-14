@@ -119,4 +119,4 @@ re: fclean all
 # Inclui dependências de headers para forçar recompilação se um .h mudar
 -include $(DEPS)
 
-.PHONY: all clean fclean re debug asan gdb valgrind run_asan
+.PHONY: all clean fclean re debug asan gdb valgrind run_asan run
